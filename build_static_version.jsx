@@ -1,6 +1,14 @@
 import React from 'react';
 
 export const FilterableProductTable = React.createClass({
+    getInitialState() {
+        return {
+            filterText: '',
+            inStockOnly: false
+        }
+    },
+
+    
     render() {
         const products = this.props.products;
         return (
@@ -14,9 +22,14 @@ export const FilterableProductTable = React.createClass({
 
 export const SearchBar = React.createClass({
     render() {
+        const { filterText, inStockOnly } = this.props;
         return (
             <form>
                 <input type="search"/>
+                <label>
+                    <input type="checkbox" value={inStockOnly}/>
+                    Show products in stock
+                </label>
             </form>
         )
     }
@@ -24,7 +37,7 @@ export const SearchBar = React.createClass({
 
 export const ProductTable = React.createClass({
     render() {
-        const products = this.props.products;
+        const { products, filterText, inStockOnly } = this.props;
         const rows = [];
         let currentCategory;
 
